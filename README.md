@@ -19,12 +19,18 @@ $ git clone -b development git@github.com:maulanadata/roorent-BE.git
 
 nb: code diatas akan mengambil repository dengan branch <b>development</b>.
 
+## Start to work
+```bash
+# change directory to roorent-BE
+$ cd roorent-BE
+
+# install package
+$ yarn
+```
+
 ## Running the app
 
 ```bash
-# install package
-$ yarn
-
 # development
 $ yarn start
 
