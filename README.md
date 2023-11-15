@@ -50,7 +50,7 @@ $ yarn start:prod
 - Sebelum mulai bekerja, buatlah branch baru sesuai fitur yang akan dikerjakan dengan format <b>feat/nama_fitur</b> (misal: <b>feat/auth</b>, <b>feat/product</b>, <b>dst.</b>).
 - Bekerjalah di dalam branch yang akan dikerjakan.
 
-## Stay in touch
+## Team
 
 - [Fauzi Rahman Dhani](https://github.com/Fauzi0309)
 - [Mohamad Wildan Maulana](https://github.com/maulanadata)
