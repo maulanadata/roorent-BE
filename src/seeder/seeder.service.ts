@@ -3,8 +3,8 @@ import { EntityTarget } from 'typeorm/common/EntityTarget';
 import { DataSource } from 'typeorm';
 import { ObjectLiteral } from 'typeorm/common/ObjectLiteral';
 import { ConfigService } from '@nestjs/config';
-import { User } from '#/users/entities/user.entity';
-import { userMasterData } from '#/seeder/data/user';
+import { Levels } from '#/levels/entities/level.entity';
+import { levelMasterData } from './data/level';
 
 @Injectable()
 export class SeederService implements OnApplicationBootstrap {
@@ -19,26 +19,24 @@ export class SeederService implements OnApplicationBootstrap {
     entity: EntityTarget<Entity>,
     data: Entity[],
   ) {
-    await this.dataSource
-      .createQueryBuilder()
-      .insert()
-      .into(entity)
-      .values(data)
-      .orIgnore()
-      .execute();
-  }
+    for (const datas of data) {
+      const existingRecord = await this.dataSource.manager.findOne(entity, {
+        where: datas,
+      });
 
-  private async updateOrInsert<Entity extends ObjectLiteral>(
-    entity: EntityTarget<Entity>,
-    data: Entity[],
-  ) {
-    for (const datum of data) {
-      await this.dataSource.manager.upsert(entity, datum, ['id']);
+      if (!existingRecord) {
+        await this.dataSource
+          .createQueryBuilder()
+          .insert()
+          .into(entity)
+          .values(datas)
+          .execute();
+      }
     }
   }
 
   async seeder() {
-    await this.updateOrInsert(User, userMasterData);
+    await this.insertIfNotExist(Levels, levelMasterData);
   }
 
   async onApplicationBootstrap() {

@@ -1,9 +1,12 @@
 import { IsNotEmpty } from 'class-validator';
 
-export class UpdateUserDto {
+export class RegisterDTO {
   @IsNotEmpty()
   email: string;
 
   @IsNotEmpty()
   password: string;
+
+  @IsNotEmpty()
+  levelId: string;
 }

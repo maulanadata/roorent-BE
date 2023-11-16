@@ -2,13 +2,15 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from 'joi';
-import { UsersModule } from './users/users.module';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { LoggerModule } from 'nestjs-pino';
-import { HealthModule } from './health/health.module';
 import configuration from './config/configuration';
 import * as pino from 'pino';
+import { UsersModule } from './users/users.module';
 import { SeederModule } from '#/seeder/seeder.module';
+import { LevelsModule } from './levels/levels.module';
+import { ReviewsModule } from './reviews/reviews.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -95,7 +97,9 @@ import { SeederModule } from '#/seeder/seeder.module';
     }),
     SeederModule,
     UsersModule,
-    HealthModule,
+    LevelsModule,
+    ReviewsModule,
+    AuthModule,
   ],
 })
 export class AppModule {}
