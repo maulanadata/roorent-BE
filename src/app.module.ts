@@ -9,6 +9,7 @@ import { HealthModule } from './health/health.module';
 import configuration from './config/configuration';
 import * as pino from 'pino';
 import { SeederModule } from '#/seeder/seeder.module';
+import { SpecialRulesModule } from './special_rules/special_rules.module';
 
 @Module({
   imports: [
@@ -96,6 +97,7 @@ import { SeederModule } from '#/seeder/seeder.module';
     SeederModule,
     UsersModule,
     HealthModule,
+    SpecialRulesModule,
   ],
 })
 export class AppModule {}
