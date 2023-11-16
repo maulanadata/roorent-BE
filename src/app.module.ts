@@ -12,6 +12,7 @@ import { LevelsModule } from './levels/levels.module';
 import { ReviewsModule } from './reviews/reviews.module';
 import { AuthModule } from './auth/auth.module';
 import { BiodatasModule } from './biodatas/biodatas.module';
+import { SpecialRulesModule } from './special_rules/special_rules.module';
 
 @Module({
   imports: [
@@ -102,6 +103,7 @@ import { BiodatasModule } from './biodatas/biodatas.module';
     LevelsModule,
     ReviewsModule,
     BiodatasModule,
+    SpecialRulesModule,
   ],
 })
 export class AppModule {}

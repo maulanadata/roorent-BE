@@ -1,8 +1,8 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { EntityNotFoundError, Repository } from 'typeorm';
-import { Users } from './entities/user.entity';
-import { InjectRepository } from '@nestjs/typeorm';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
+import { UpdateUserDto } from './dto/update-user.dto'
+import { EntityNotFoundError, Repository } from 'typeorm'
+import { Users } from './entities/user.entity'
+import { InjectRepository } from '@nestjs/typeorm'
 
 @Injectable()
 export class UsersService {
@@ -16,7 +16,7 @@ export class UsersService {
       relations: {
         level: true,
       },
-    });
+    })
   }
 
   async findOne(id: string) {
@@ -25,18 +25,18 @@ export class UsersService {
         where: {
           id,
         },
-      });
-    } catch (e) {
-      if (e instanceof EntityNotFoundError) {
+      })
+    } catch (err) {
+      if (err instanceof EntityNotFoundError) {
         throw new HttpException(
           {
             statusCode: HttpStatus.NOT_FOUND,
             error: 'Data not found',
           },
           HttpStatus.NOT_FOUND,
-        );
+        )
       } else {
-        throw e;
+        throw err
       }
     }
   }
@@ -47,28 +47,28 @@ export class UsersService {
         where: {
           id,
         },
-      });
-    } catch (e) {
-      if (e instanceof EntityNotFoundError) {
+      })
+    } catch (err) {
+      if (err instanceof EntityNotFoundError) {
         throw new HttpException(
           {
             statusCode: HttpStatus.NOT_FOUND,
             error: 'Data not found',
           },
           HttpStatus.NOT_FOUND,
-        );
+        )
       } else {
-        throw e;
+        throw err
       }
     }
 
-    await this.usersRepository.update(id, payload);
+    await this.usersRepository.update(id, payload)
 
     return this.usersRepository.findOneOrFail({
       where: {
         id,
       },
-    });
+    })
   }
 
   async remove(id: string) {
@@ -77,21 +77,21 @@ export class UsersService {
         where: {
           id,
         },
-      });
-    } catch (e) {
-      if (e instanceof EntityNotFoundError) {
+      })
+    } catch (err) {
+      if (err instanceof EntityNotFoundError) {
         throw new HttpException(
           {
             statusCode: HttpStatus.NOT_FOUND,
             error: 'Data not found',
           },
           HttpStatus.NOT_FOUND,
-        );
+        )
       } else {
-        throw e;
+        throw err
       }
     }
 
-    await this.usersRepository.softDelete(id);
+    await this.usersRepository.softDelete(id)
   }
 }

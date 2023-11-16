@@ -1,7 +1,7 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Levels } from './entities/level.entity';
-import { EntityNotFoundError, Repository } from 'typeorm';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Levels } from './entities/level.entity'
+import { EntityNotFoundError, Repository } from 'typeorm'
 
 @Injectable()
 export class LevelsService {
@@ -12,9 +12,9 @@ export class LevelsService {
 
   findAll() {
     try {
-      return this.levelsRepository.findAndCount();
+      return this.levelsRepository.findAndCount()
     } catch (err) {
-      throw err;
+      throw err
     }
   }
 
@@ -24,18 +24,18 @@ export class LevelsService {
         where: {
           id,
         },
-      });
-    } catch (e) {
-      if (e instanceof EntityNotFoundError) {
+      })
+    } catch (err) {
+      if (err instanceof EntityNotFoundError) {
         throw new HttpException(
           {
             statusCode: HttpStatus.NOT_FOUND,
             error: 'Data not found',
           },
           HttpStatus.NOT_FOUND,
-        );
+        )
       } else {
-        throw e;
+        throw err
       }
     }
   }
