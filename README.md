@@ -9,6 +9,7 @@
 ## Installation
 
 - Clone menggunakan HTTP
+<<<<<<< HEAD
 
 ```bash
 $ git clone -b development https://github.com/maulanadata/roorent-BE.git
@@ -16,6 +17,12 @@ $ git clone -b development https://github.com/maulanadata/roorent-BE.git
 
 - Clone menggunakan SSH
 
+=======
+```bash
+$ git clone -b development https://github.com/maulanadata/roorent-BE.git
+```
+- Clone menggunakan SSH
+>>>>>>> development
 ```bash
 $ git clone -b development git@github.com:maulanadata/roorent-BE.git
 ```
@@ -23,7 +30,10 @@ $ git clone -b development git@github.com:maulanadata/roorent-BE.git
 nb: code diatas akan mengambil repository dengan branch <b>development</b>.
 
 ## Start to work
+<<<<<<< HEAD
 
+=======
+>>>>>>> development
 ```bash
 # change directory to roorent-BE
 $ cd roorent-BE
@@ -47,7 +57,11 @@ $ yarn start:prod
 
 ## Important
 
+<<<<<<< HEAD
 - Sebelum mulai bekerja, buatlah branch baru sesuai fitur yang akan dikerjakan dengan format <b>feat/nama_fitur</b> (misal: <b>feat/auth</b>, <b>feat/product</b>, <b>dst.</b>).
+=======
+- Sebelum mulai bekerja, buatlah branch baru sesuai fitur yang akan dikerjakan dengan format <b>feat/nama_fitur</b>  (misal: <b>feat/auth</b>, <b>feat/product</b>, <b>dst.</b>).
+>>>>>>> development
 - Bekerjalah di dalam branch yang akan dikerjakan.
 
 ## Team
@@ -59,3 +73,7 @@ $ yarn start:prod
 ## License
 
 Roorent is [MIT licensed](LICENSE).
+<<<<<<< HEAD
+=======
+  
+>>>>>>> development

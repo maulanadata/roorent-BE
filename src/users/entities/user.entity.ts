@@ -1,0 +1,55 @@
+import { Levels } from '#/levels/entities/level.entity';
+import { Reviews } from '#/reviews/entities/reviews.entity';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+  DeleteDateColumn,
+  VersionColumn,
+  CreateDateColumn,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
+
+@Entity()
+export class Users {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
+  @Column({ nullable: false })
+  email: string;
+
+  @Column({ nullable: false })
+  password: string;
+
+  @Column({ nullable: true })
+  salt: string;
+
+  @CreateDateColumn({
+    type: 'timestamp with time zone',
+    nullable: false,
+  })
+  createdAt: Date;
+
+  @UpdateDateColumn({
+    type: 'timestamp with time zone',
+    nullable: false,
+  })
+  updatedAt: Date;
+
+  @DeleteDateColumn({
+    type: 'timestamp with time zone',
+    nullable: true,
+  })
+  deletedAt: Date;
+
+  @VersionColumn()
+  version: number;
+
+  @ManyToOne(() => Levels, (level) => level.user)
+  level: Levels;
+
+  @OneToMany(() => Reviews, (reviews) => reviews.user)
+  reviews: Reviews;
+}
