@@ -99,6 +99,6 @@ export class BiodatasService {
             }
         }
 
-        await this.biodatasRepository.delete(id);
+        await this.biodatasRepository.softDelete(id);
     }
 }
