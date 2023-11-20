@@ -10,6 +10,7 @@ import configuration from './config/configuration';
 import * as pino from 'pino';
 import { SeederModule } from '#/seeder/seeder.module';
 import { BiodatasModule } from './biodatas/biodatas.module';
+import { ProductDescriptionsModule } from './product_descriptions/product_descriptions.module';
 
 @Module({
   imports: [
@@ -98,6 +99,7 @@ import { BiodatasModule } from './biodatas/biodatas.module';
     UsersModule,
     HealthModule,
     BiodatasModule,
+    ProductDescriptionsModule,
   ],
 })
 export class AppModule {}
