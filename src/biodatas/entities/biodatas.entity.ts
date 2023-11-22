@@ -42,7 +42,8 @@ export class Biodatas {
     
     @Column({
         type: 'varchar',
-        length: 255
+        length: 255,
+        nullable: true,
     })
     photo_ktp: string;
 
