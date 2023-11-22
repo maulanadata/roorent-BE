@@ -5,6 +5,8 @@ import { ObjectLiteral } from 'typeorm/common/ObjectLiteral';
 import { ConfigService } from '@nestjs/config';
 import { Levels } from '#/levels/entities/level.entity';
 import { levelMasterData } from './data/level';
+// import { Cities } from '#/cities/entities/city.entity';
+// import { cityMasterData } from './data/city';
 
 @Injectable()
 export class SeederService implements OnApplicationBootstrap {
@@ -37,6 +39,7 @@ export class SeederService implements OnApplicationBootstrap {
 
   async seeder() {
     await this.insertIfNotExist(Levels, levelMasterData);
+    // await this.insertIfNotExist(Cities, cityMasterData)
   }
 
   async onApplicationBootstrap() {

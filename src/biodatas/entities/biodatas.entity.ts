@@ -1,11 +1,18 @@
+import { Users } from '#/users/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+
+export enum GenderUsers {
+  PRIA = 'pria',
+  WANITA = 'wanita',
+}
 
 @Entity()
 export class Biodatas {
@@ -15,6 +22,7 @@ export class Biodatas {
   @Column({
     type: 'varchar',
     length: 16,
+    nullable: true,
   })
   nik: string;
 
@@ -31,7 +39,14 @@ export class Biodatas {
   last_name: string;
 
   @Column({
+    type: 'enum',
+    enum: GenderUsers
+  })
+  gender: GenderUsers;
+
+  @Column({
     type: 'date',
+    nullable: true,
   })
   birth_date: Date;
 
@@ -50,6 +65,7 @@ export class Biodatas {
   @Column({
     type: 'varchar',
     length: 255,
+    nullable: true,
   })
   photo_ktp: string;
 
@@ -61,6 +77,7 @@ export class Biodatas {
 
   @Column({
     default: false,
+    nullable: true,
   })
   isActive: boolean;
 
@@ -81,4 +98,7 @@ export class Biodatas {
     nullable: true,
   })
   deletedAt: Date;
+
+  @OneToOne(() =>  Users, (user) => user.biodatas)
+  user: Users;
 }

@@ -33,8 +33,8 @@ export class BiodatasService {
           id,
         },
       });
-    } catch (e) {
-      if (e instanceof EntityNotFoundError) {
+    } catch (err) {
+      if (err instanceof EntityNotFoundError) {
         throw new HttpException(
           {
             statusCode: HttpStatus.NOT_FOUND,
@@ -43,7 +43,7 @@ export class BiodatasService {
           HttpStatus.NOT_FOUND,
         );
       } else {
-        throw e;
+        throw err;
       }
     }
   }
@@ -55,8 +55,8 @@ export class BiodatasService {
           id,
         },
       });
-    } catch (e) {
-      if (e instanceof EntityNotFoundError) {
+    } catch (err) {
+      if (err instanceof EntityNotFoundError) {
         throw new HttpException(
           {
             statusCode: HttpStatus.NOT_FOUND,
@@ -65,7 +65,7 @@ export class BiodatasService {
           HttpStatus.NOT_FOUND,
         );
       } else {
-        throw e;
+        throw err;
       }
     }
 
@@ -85,8 +85,8 @@ export class BiodatasService {
           id,
         },
       });
-    } catch (e) {
-      if (e instanceof EntityNotFoundError) {
+    } catch (err) {
+      if (err instanceof EntityNotFoundError) {
         throw new HttpException(
           {
             statusCode: HttpStatus.NOT_FOUND,
@@ -95,7 +95,7 @@ export class BiodatasService {
           HttpStatus.NOT_FOUND,
         );
       } else {
-        throw e;
+        throw err;
       }
     }
 
