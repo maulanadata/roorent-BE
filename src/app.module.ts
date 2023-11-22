@@ -1,19 +1,20 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import * as Joi from 'joi';
-import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
-import { LoggerModule } from 'nestjs-pino';
-import configuration from './config/configuration';
-import * as pino from 'pino';
-import { UsersModule } from './users/users.module';
-import { SeederModule } from '#/seeder/seeder.module';
-import { LevelsModule } from './levels/levels.module';
-import { ReviewsModule } from './reviews/reviews.module';
-import { AuthModule } from './auth/auth.module';
-import { BiodatasModule } from './biodatas/biodatas.module';
-import { SpecialRulesModule } from './special_rules/special_rules.module';
-import { BanksModule } from './banks/banks.module';
+import { Module } from '@nestjs/common'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { ConfigModule, ConfigService } from '@nestjs/config'
+import * as Joi from 'joi'
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
+import { LoggerModule } from 'nestjs-pino'
+import configuration from './config/configuration'
+import * as pino from 'pino'
+import { UsersModule } from './users/users.module'
+import { SeederModule } from '#/seeder/seeder.module'
+import { LevelsModule } from './levels/levels.module'
+import { ReviewsModule } from './reviews/reviews.module'
+import { AuthModule } from './auth/auth.module'
+import { BiodatasModule } from './biodatas/biodatas.module'
+import { SpecialRulesModule } from './special_rules/special_rules.module'
+import { BanksModule } from './banks/banks.module'
+import { ProductDescriptionsModule } from './product_descriptions/product_descriptions.module'
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import { BanksModule } from './banks/banks.module';
       pinoHttp: {
         base: undefined,
         genReqId: (req) => {
-          return req['x-correlation-id'];
+          return req['x-correlation-id']
         },
         redact: {
           paths: [
@@ -94,7 +95,7 @@ import { BanksModule } from './banks/banks.module';
           autoLoadEntities: true,
           logging: false,
           namingStrategy: new SnakeNamingStrategy(),
-        };
+        }
       },
       inject: [ConfigService],
     }),
@@ -104,6 +105,7 @@ import { BanksModule } from './banks/banks.module';
     LevelsModule,
     ReviewsModule,
     BiodatasModule,
+    ProductDescriptionsModule,
     SpecialRulesModule,
     BanksModule,
   ],
