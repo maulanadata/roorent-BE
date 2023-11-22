@@ -13,6 +13,7 @@ import { ReviewsModule } from './reviews/reviews.module';
 import { AuthModule } from './auth/auth.module';
 import { BiodatasModule } from './biodatas/biodatas.module';
 import { SpecialRulesModule } from './special_rules/special_rules.module';
+import { BanksModule } from './banks/banks.module';
 
 @Module({
   imports: [
@@ -104,6 +105,7 @@ import { SpecialRulesModule } from './special_rules/special_rules.module';
     ReviewsModule,
     BiodatasModule,
     SpecialRulesModule,
+    BanksModule,
   ],
 })
 export class AppModule {}

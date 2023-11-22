@@ -1,4 +1,5 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsEnum, IsNotEmpty } from 'class-validator';
+import { GenderUsers } from '../entities/biodatas.entity';
 
 export class CreateBiodatasDTO {
   @IsNotEmpty()
@@ -9,6 +10,10 @@ export class CreateBiodatasDTO {
 
   @IsNotEmpty()
   last_name: string;
+
+  @IsNotEmpty()
+  @IsEnum(GenderUsers)
+  gender: GenderUsers;
 
   @IsNotEmpty()
   birth_date: Date;
