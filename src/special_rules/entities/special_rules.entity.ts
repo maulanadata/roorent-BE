@@ -1,8 +1,10 @@
+import { Products } from '#/products/enitities/products.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -10,6 +12,7 @@ import {
 export enum GenderProduct {
   PRIA = 'pria',
   WANITA = 'wanita',
+  CAMPUR = 'campur',
 }
 @Entity()
 export class SpecialRules {

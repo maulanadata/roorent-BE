@@ -1,6 +1,7 @@
 import { Banks } from '#/banks/entities/banks.entity';
 import { Biodatas } from '#/biodatas/entities/biodatas.entity';
 import { Levels } from '#/levels/entities/level.entity';
+import { Products } from '#/products/enitities/products.entity';
 import { Reviews } from '#/reviews/entities/reviews.entity';
 import {
   Entity,
@@ -61,4 +62,7 @@ export class Users {
 
   @OneToOne(() => Biodatas , (biodatas) =>biodatas.user)
   biodatas: Biodatas;
+
+  // @OneToMany(() => Products, (products) => products.user)
+  // products: Products;
 }

@@ -16,6 +16,7 @@ import { SpecialRulesModule } from './special_rules/special_rules.module'
 import { BanksModule } from './banks/banks.module'
 import { ProductDescriptionsModule } from './product_descriptions/product_descriptions.module'
 import { CitiesModule } from './cities/cities.module';
+import { ProductsModule } from './products/products.module';
 
 @Module({
   imports: [
@@ -110,6 +111,7 @@ import { CitiesModule } from './cities/cities.module';
     SpecialRulesModule,
     BanksModule,
     CitiesModule,
+    ProductsModule,
   ],
 })
 export class AppModule {}
