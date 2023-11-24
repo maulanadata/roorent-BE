@@ -1,11 +1,12 @@
-import { Body, Controller, Get, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDTO } from './dto/register.dto';
 import { LoginDTO } from './dto/login.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService) { }
 
   @Post('/register')
   async register(@Body() payload: RegisterDTO) {
@@ -16,11 +17,18 @@ export class AuthController {
     };
   }
 
-  @Get('/login')
+  @Post('/login')
   async login(@Body() payload: LoginDTO) {
     return {
       statusCode: HttpStatus.OK,
-      message: await this.authService.login(payload),
-    };
+      message: "Success",
+      data: await this.authService.login(payload),
+    }
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('/profile')
+  async profile(@Req() req){
+    return req.user
   }
 }

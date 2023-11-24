@@ -7,6 +7,7 @@ import { Biodatas } from './entities/biodatas.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([Biodatas])],
   controllers: [BiodatasController],
-  providers: [BiodatasService]
+  providers: [BiodatasService],
+  exports: [BiodatasService],
 })
 export class BiodatasModule {}

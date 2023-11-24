@@ -1,3 +1,5 @@
+import { Banks } from '#/banks/entities/banks.entity';
+import { Biodatas } from '#/biodatas/entities/biodatas.entity';
 import { Levels } from '#/levels/entities/level.entity';
 import { Reviews } from '#/reviews/entities/reviews.entity';
 import {
@@ -10,6 +12,7 @@ import {
   CreateDateColumn,
   ManyToOne,
   OneToMany,
+  OneToOne,
 } from 'typeorm';
 
 @Entity()
@@ -52,4 +55,10 @@ export class Users {
 
   @OneToMany(() => Reviews, (reviews) => reviews.user)
   reviews: Reviews;
+
+  @OneToMany(() => Banks, (banks) => banks.user)
+  banks: Banks;
+
+  @OneToOne(() => Biodatas , (biodatas) =>biodatas.user)
+  biodatas: Biodatas;
 }
