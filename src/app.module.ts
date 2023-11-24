@@ -15,6 +15,7 @@ import { BiodatasModule } from './biodatas/biodatas.module'
 import { SpecialRulesModule } from './special_rules/special_rules.module'
 import { BanksModule } from './banks/banks.module'
 import { ProductDescriptionsModule } from './product_descriptions/product_descriptions.module'
+import { CitiesModule } from './cities/cities.module';
 
 @Module({
   imports: [
@@ -108,6 +109,7 @@ import { ProductDescriptionsModule } from './product_descriptions/product_descri
     ProductDescriptionsModule,
     SpecialRulesModule,
     BanksModule,
+    CitiesModule,
   ],
 })
 export class AppModule {}
