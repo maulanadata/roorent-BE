@@ -1,4 +1,5 @@
-import { HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { v4 as uuidv4, parse as uuidParse } from 'uuid'
 import { RegisterDTO } from './dto/register.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -22,19 +23,26 @@ export class AuthService {
 
   async register(payload: RegisterDTO) {
     try {
-      const findUserId = await this.levelService.findOne(payload.levelId);
+      const findLevelUser = await this.levelService.findOneName(payload.level)
+      
+      const levelId = uuidParse(findLevelUser.id);
+      let isActive: boolean;
 
-      //generate salt
+      // kondisi untuk menentukan is_active pada user
+      if (payload.level === "renter"){
+        isActive = true;
+      }else if (payload.level === "owner"){
+        isActive = false;
+      }
+
       const saltGenerate = await bcrypt.genSalt();
-
-      //hash password
       const hash = await bcrypt.hash(payload.password, saltGenerate)
 
       const usersEntity = new Users();
       usersEntity.email = payload.email;
       usersEntity.salt = saltGenerate;
       usersEntity.password = hash;
-      usersEntity.level = findUserId;
+      usersEntity.level = levelId;
 
       const biodatasEntity = new Biodatas();
       biodatasEntity.nik = payload.nik;
@@ -43,7 +51,8 @@ export class AuthService {
       biodatasEntity.gender = payload.gender;
       biodatasEntity.birth_date = new Date(payload.birth_date);
       biodatasEntity.photo_profile = payload.photo_profile;
-      biodatasEntity.telephone = payload.telephone;
+      biodatasEntity.phone = payload.phone;
+      biodatasEntity.isActive = isActive;
       biodatasEntity.photo_ktp = payload.photo_ktp;
       biodatasEntity.address = payload.address;
 

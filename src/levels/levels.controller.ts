@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Get,
   HttpStatus,
@@ -29,6 +30,15 @@ export class LevelsController {
       statusCode: HttpStatus.OK,
       message: 'success',
       data: await this.levelsService.findOne(id),
+    }
+  }
+
+  @Get(':name')
+  async findOneName(@Body('name') name: string) {
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'success',
+      data: await this.levelsService.findOneName(name),
     }
   }
 }

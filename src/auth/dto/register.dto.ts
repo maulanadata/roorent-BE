@@ -1,6 +1,5 @@
 import { GenderUsers } from '#/biodatas/entities/biodatas.entity';
 import { IsEnum, IsNotEmpty } from 'class-validator';
-import { IsNull } from 'typeorm';
 
 export class RegisterDTO {
   @IsNotEmpty()
@@ -10,7 +9,7 @@ export class RegisterDTO {
   password: string;
 
   @IsNotEmpty()
-  levelId: string;
+  level: string;
 
   @IsNotEmpty()
   nik: string;
@@ -28,11 +27,10 @@ export class RegisterDTO {
   @IsNotEmpty()
   birth_date: Date;
 
-  @IsNotEmpty()
   photo_profile: string;
 
   @IsNotEmpty()
-  telephone: string;
+  phone: string;
 
   photo_ktp: string;
 

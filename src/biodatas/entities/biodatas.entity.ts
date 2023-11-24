@@ -53,6 +53,7 @@ export class Biodatas {
   @Column({
     type: 'varchar',
     length: 255,
+    nullable: true,
   })
   photo_profile: string;
 
@@ -60,7 +61,7 @@ export class Biodatas {
     type: 'char',
     length: 13,
   })
-  telephone: string;
+  phone: string;
 
   @Column({
     type: 'varchar',
