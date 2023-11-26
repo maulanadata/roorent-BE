@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Get,
   HttpStatus,
@@ -23,12 +24,12 @@ export class LevelsController {
     }
   }
 
-  @Get(':id')
-  async findOne(@Param('id', ParseUUIDPipe) id: string) {
+  @Get(':name')
+  async findOne(@Param('name') name: string) {
     return {
       statusCode: HttpStatus.OK,
       message: 'success',
-      data: await this.levelsService.findOne(id),
+      data: await this.levelsService.findOne(name),
     }
   }
 }
