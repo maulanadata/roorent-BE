@@ -2,7 +2,7 @@ import { GenderUsers } from '#/biodatas/entities/biodatas.entity'
 import { IsEnum, IsNotEmpty } from 'class-validator'
 
 export class RegisterDTO {
-  @IsNotEmpty()
+  // @IsNotEmpty()
   level: string
 
   @IsNotEmpty()

@@ -14,6 +14,11 @@ export enum GenderUsers {
   PRIA = 'pria',
   WANITA = 'wanita',
 }
+export enum StatusUsers {
+  ACTIVE = 'active',
+  INACTIVE = 'inactive',
+  PENDING = 'pending',
+}
 
 @Entity()
 export class Biodatas {
@@ -78,10 +83,11 @@ export class Biodatas {
   address: string
 
   @Column({
-    default: false,
-    nullable: true,
+    type: 'enum',
+    enum: StatusUsers,
+    default: StatusUsers.PENDING,
   })
-  isActive: boolean
+  isActive: StatusUsers
 
   @CreateDateColumn({
     type: 'timestamp with time zone',

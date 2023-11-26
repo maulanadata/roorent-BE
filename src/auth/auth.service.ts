@@ -1,5 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
-import UUID from 'uuid'
+import {
+  BadRequestException,
+  HttpException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common'
 import { RegisterDTO } from './dto/register.dto'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
@@ -23,28 +27,24 @@ export class AuthService {
 
   async register(payload: RegisterDTO) {
     try {
+      if (!['owner', 'renter'].includes(payload.level)) {
+        throw new BadRequestException('Invalid, role not specified.')
+      }
+
       const findLevelUser = await this.levelService.findOne(payload.level)
 
       const levelId: any = findLevelUser.id
-      // const n = payload.level
-      // return { levelId, n, findLevelUser }
 
       // kondisi untuk menentukan is_active pada user
-      let isActive: boolean
+      let isActive: any
       if (payload.level === 'renter') {
-        isActive = true
+        isActive = 'active'
       } else if (payload.level === 'owner') {
-        isActive = false
+        isActive = 'pending'
       }
 
       const saltGenerate = await bcrypt.genSalt()
       const hash = await bcrypt.hash(payload.password, saltGenerate)
-
-      const usersEntity = new Users()
-      usersEntity.email = payload.email
-      usersEntity.salt = saltGenerate
-      usersEntity.password = hash
-      usersEntity.level = levelId
 
       const biodatasEntity = new Biodatas()
       biodatasEntity.nik = payload.nik
@@ -58,10 +58,18 @@ export class AuthService {
       biodatasEntity.photo_ktp = payload.photo_ktp
       biodatasEntity.address = payload.address
 
-      const insertUsers = await this.usersRepository.insert(usersEntity)
       const insertBiodatas = await this.biodatasRepository.insert(
         biodatasEntity,
       )
+
+      const usersEntity = new Users()
+      usersEntity.email = payload.email
+      usersEntity.salt = saltGenerate
+      usersEntity.password = hash
+      usersEntity.level = levelId
+      usersEntity.biodata = insertBiodatas.identifiers[0].id
+
+      const insertUsers = await this.usersRepository.insert(usersEntity)
 
       return (
         this.usersRepository.findOneOrFail({

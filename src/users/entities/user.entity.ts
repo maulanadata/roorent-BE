@@ -13,6 +13,7 @@ import {
   ManyToOne,
   OneToMany,
   OneToOne,
+  JoinColumn,
 } from 'typeorm'
 
 @Entity()
@@ -60,5 +61,6 @@ export class Users {
   banks: Banks
 
   @OneToOne(() => Biodatas, (biodatas) => biodatas.user)
+  @JoinColumn()
   biodata: Biodatas
 }
