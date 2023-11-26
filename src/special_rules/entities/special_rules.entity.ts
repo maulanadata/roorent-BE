@@ -5,7 +5,8 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-} from 'typeorm';
+  VersionColumn,
+} from 'typeorm'
 
 export enum GenderProduct {
   PRIA = 'pria',
@@ -14,40 +15,43 @@ export enum GenderProduct {
 @Entity()
 export class SpecialRules {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: string
 
   @Column({
     type: 'int',
   })
-  max_person: number;
+  max_person: number
 
   @Column({
     type: 'enum',
     enum: GenderProduct,
   })
-  gender: GenderProduct;
+  gender: GenderProduct
 
   @Column({
     type: 'varchar',
     length: 255,
   })
-  general: string;
+  general: string
 
   @CreateDateColumn({
     type: 'timestamp with time zone',
     nullable: false,
   })
-  createdAt: Date;
+  createdAt: Date
 
   @UpdateDateColumn({
     type: 'timestamp with time zone',
     nullable: false,
   })
-  updatedAt: Date;
+  updatedAt: Date
 
   @DeleteDateColumn({
     type: 'timestamp with time zone',
     nullable: true,
   })
-  deletedAt: Date;
+  deletedAt: Date
+
+  @VersionColumn()
+  version: number
 }

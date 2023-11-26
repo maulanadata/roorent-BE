@@ -1,4 +1,4 @@
-import { Users } from '#/users/entities/user.entity';
+import { Users } from '#/users/entities/user.entity'
 import {
   Column,
   CreateDateColumn,
@@ -7,7 +7,8 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-} from 'typeorm';
+  VersionColumn,
+} from 'typeorm'
 
 export enum GenderUsers {
   PRIA = 'pria',
@@ -17,89 +18,92 @@ export enum GenderUsers {
 @Entity()
 export class Biodatas {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: string
 
   @Column({
     type: 'varchar',
     length: 16,
     nullable: true,
   })
-  nik: string;
+  nik: string
 
   @Column({
     type: 'varchar',
     length: 25,
   })
-  first_name: string;
+  first_name: string
 
   @Column({
     type: 'varchar',
     length: 255,
   })
-  last_name: string;
+  last_name: string
 
   @Column({
     type: 'enum',
-    enum: GenderUsers
+    enum: GenderUsers,
   })
-  gender: GenderUsers;
+  gender: GenderUsers
 
   @Column({
     type: 'date',
     nullable: true,
   })
-  birth_date: Date;
+  birth_date: Date
 
   @Column({
     type: 'varchar',
     length: 255,
     nullable: true,
   })
-  photo_profile: string;
+  photo_profile: string
 
   @Column({
     type: 'char',
     length: 13,
   })
-  phone: string;
+  phone: string
 
   @Column({
     type: 'varchar',
     length: 255,
     nullable: true,
   })
-  photo_ktp: string;
+  photo_ktp: string
 
   @Column({
     type: 'varchar',
     length: 255,
   })
-  address: string;
+  address: string
 
   @Column({
     default: false,
     nullable: true,
   })
-  isActive: boolean;
+  isActive: boolean
 
   @CreateDateColumn({
     type: 'timestamp with time zone',
     nullable: false,
   })
-  createdAt: Date;
+  createdAt: Date
 
   @UpdateDateColumn({
     type: 'timestamp with time zone',
     nullable: false,
   })
-  updatedAt: Date;
+  updatedAt: Date
 
   @DeleteDateColumn({
     type: 'timestamp with time zone',
     nullable: true,
   })
-  deletedAt: Date;
+  deletedAt: Date
 
-  @OneToOne(() =>  Users, (user) => user.biodatas)
-  user: Users;
+  @VersionColumn()
+  version: number
+
+  @OneToOne(() => Users, (user) => user.biodata)
+  user: Users
 }

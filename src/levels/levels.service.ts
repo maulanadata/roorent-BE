@@ -18,33 +18,11 @@ export class LevelsService {
     }
   }
 
-  async findOne(id: string) {
+  async findOne(name: string) {
     try {
       return await this.levelsRepository.findOneOrFail({
         where: {
-          id,
-        },
-      })
-    } catch (err) {
-      if (err instanceof EntityNotFoundError) {
-        throw new HttpException(
-          {
-            statusCode: HttpStatus.NOT_FOUND,
-            error: 'Data not found',
-          },
-          HttpStatus.NOT_FOUND,
-        )
-      } else {
-        throw err
-      }
-    }
-  }
-
-  async findOneName(name: string) {
-    try {
-      return await this.levelsRepository.findOneOrFail({
-        where: {
-          name,
+          name: name,
         },
       })
     } catch (err) {

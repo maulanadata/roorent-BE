@@ -24,21 +24,12 @@ export class LevelsController {
     }
   }
 
-  @Get(':id')
-  async findOne(@Param('id', ParseUUIDPipe) id: string) {
-    return {
-      statusCode: HttpStatus.OK,
-      message: 'success',
-      data: await this.levelsService.findOne(id),
-    }
-  }
-
   @Get(':name')
-  async findOneName(@Body('name') name: string) {
+  async findOne(@Param('name') name: string) {
     return {
       statusCode: HttpStatus.OK,
       message: 'success',
-      data: await this.levelsService.findOneName(name),
+      data: await this.levelsService.findOne(name),
     }
   }
 }

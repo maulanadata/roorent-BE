@@ -1,7 +1,7 @@
-import { Banks } from '#/banks/entities/banks.entity';
-import { Biodatas } from '#/biodatas/entities/biodatas.entity';
-import { Levels } from '#/levels/entities/level.entity';
-import { Reviews } from '#/reviews/entities/reviews.entity';
+import { Banks } from '#/banks/entities/banks.entity'
+import { Biodatas } from '#/biodatas/entities/biodatas.entity'
+import { Levels } from '#/levels/entities/level.entity'
+import { Reviews } from '#/reviews/entities/reviews.entity'
 import {
   Entity,
   Column,
@@ -13,52 +13,52 @@ import {
   ManyToOne,
   OneToMany,
   OneToOne,
-} from 'typeorm';
+} from 'typeorm'
 
 @Entity()
 export class Users {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: string
 
   @Column({ nullable: false })
-  email: string;
+  email: string
 
   @Column({ nullable: false })
-  password: string;
+  password: string
 
   @Column({ nullable: true })
-  salt: string;
+  salt: string
 
   @CreateDateColumn({
     type: 'timestamp with time zone',
     nullable: false,
   })
-  createdAt: Date;
+  createdAt: Date
 
   @UpdateDateColumn({
     type: 'timestamp with time zone',
     nullable: false,
   })
-  updatedAt: Date;
+  updatedAt: Date
 
   @DeleteDateColumn({
     type: 'timestamp with time zone',
     nullable: true,
   })
-  deletedAt: Date;
+  deletedAt: Date
 
   @VersionColumn()
-  version: number;
+  version: number
 
   @ManyToOne(() => Levels, (level) => level.user)
-  level: Levels;
+  level: Levels
 
   @OneToMany(() => Reviews, (reviews) => reviews.user)
-  reviews: Reviews;
+  reviews: Reviews
 
   @OneToMany(() => Banks, (banks) => banks.user)
-  banks: Banks;
+  banks: Banks
 
-  @OneToOne(() => Biodatas , (biodatas) =>biodatas.user)
-  biodatas: Biodatas;
+  @OneToOne(() => Biodatas, (biodatas) => biodatas.user)
+  biodata: Biodatas
 }
