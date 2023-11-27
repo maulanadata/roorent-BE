@@ -18,11 +18,11 @@ export class LevelsService {
     }
   }
 
-  async findOne(id: string) {
+  async findOne(name: string) {
     try {
       return await this.levelsRepository.findOneOrFail({
         where: {
-          id,
+          name: name,
         },
       })
     } catch (err) {

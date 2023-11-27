@@ -1,13 +1,18 @@
-import { HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
-import { RegisterDTO } from './dto/register.dto';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { LevelsService } from '#/levels/levels.service';
-import { LoginDTO } from './dto/login.dto';
-import { Users } from '#/users/entities/user.entity';
-import { Biodatas } from '#/biodatas/entities/biodatas.entity';
-import * as bcrypt from 'bcrypt';
-import { JwtService } from '@nestjs/jwt';
+import {
+  BadRequestException,
+  HttpException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common'
+import { RegisterDTO } from './dto/register.dto'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
+import { LevelsService } from '#/levels/levels.service'
+import { LoginDTO } from './dto/login.dto'
+import { Users } from '#/users/entities/user.entity'
+import { Biodatas } from '#/biodatas/entities/biodatas.entity'
+import * as bcrypt from 'bcrypt'
+import { JwtService } from '@nestjs/jwt'
 
 @Injectable()
 export class AuthService {
@@ -22,33 +27,49 @@ export class AuthService {
 
   async register(payload: RegisterDTO) {
     try {
-      const findUserId = await this.levelService.findOne(payload.levelId);
+      if (!['owner', 'renter'].includes(payload.level)) {
+        throw new BadRequestException('Invalid, role not specified.')
+      }
 
-      //generate salt
-      const saltGenerate = await bcrypt.genSalt();
+      const findLevelUser = await this.levelService.findOne(payload.level)
 
-      //hash password
+      const levelId: any = findLevelUser.id
+
+      // kondisi untuk menentukan is_active pada user
+      let isActive: any
+      if (payload.level === 'renter') {
+        isActive = 'active'
+      } else if (payload.level === 'owner') {
+        isActive = 'pending'
+      }
+
+      const saltGenerate = await bcrypt.genSalt()
       const hash = await bcrypt.hash(payload.password, saltGenerate)
 
-      const usersEntity = new Users();
-      usersEntity.email = payload.email;
-      usersEntity.salt = saltGenerate;
-      usersEntity.password = hash;
-      usersEntity.level = findUserId;
+      const biodatasEntity = new Biodatas()
+      biodatasEntity.nik = payload.nik
+      biodatasEntity.first_name = payload.first_name
+      biodatasEntity.last_name = payload.last_name
+      biodatasEntity.gender = payload.gender
+      biodatasEntity.birth_date = new Date(payload.birth_date)
+      biodatasEntity.photo_profile = payload.photo_profile
+      biodatasEntity.phone = payload.phone
+      biodatasEntity.isActive = isActive
+      biodatasEntity.photo_ktp = payload.photo_ktp
+      biodatasEntity.address = payload.address
 
-      const biodatasEntity = new Biodatas();
-      biodatasEntity.nik = payload.nik;
-      biodatasEntity.first_name = payload.first_name;
-      biodatasEntity.last_name = payload.last_name;
-      biodatasEntity.gender = payload.gender;
-      biodatasEntity.birth_date = new Date(payload.birth_date);
-      biodatasEntity.photo_profile = payload.photo_profile;
-      biodatasEntity.telephone = payload.telephone;
-      biodatasEntity.photo_ktp = payload.photo_ktp;
-      biodatasEntity.address = payload.address;
+      const insertBiodatas = await this.biodatasRepository.insert(
+        biodatasEntity,
+      )
 
-      const insertUsers = await this.usersRepository.insert(usersEntity);
-      const insertBiodatas = await this.biodatasRepository.insert(biodatasEntity);
+      const usersEntity = new Users()
+      usersEntity.email = payload.email
+      usersEntity.salt = saltGenerate
+      usersEntity.password = hash
+      usersEntity.level = levelId
+      usersEntity.biodata = insertBiodatas.identifiers[0].id
+
+      const insertUsers = await this.usersRepository.insert(usersEntity)
 
       return (
         this.usersRepository.findOneOrFail({
@@ -59,48 +80,48 @@ export class AuthService {
         this.biodatasRepository.findOneOrFail({
           where: {
             id: insertBiodatas.identifiers[0].id,
-          }
+          },
         })
-      );
+      )
     } catch (err) {
-      throw err;
+      throw err
     }
   }
 
   async login(payload: LoginDTO) {
     try {
       const userOne = await this.usersRepository.findOne({
-        where: {email: payload.email}
+        where: { email: payload.email },
       })
 
       if (!userOne) {
-        throw new HttpException (
+        throw new HttpException(
           {
             statusCode: HttpStatus.BAD_REQUEST,
             error: 'Email is invalid',
           },
           HttpStatus.BAD_REQUEST,
-          )
+        )
       }
 
-      const isMatch = await bcrypt.compare(payload.password, userOne.password);
+      const isMatch = await bcrypt.compare(payload.password, userOne.password)
 
       if (!isMatch) {
-        throw new HttpException (
+        throw new HttpException(
           {
-              statusCode: HttpStatus.BAD_REQUEST,
-              error: 'password is invalid',
+            statusCode: HttpStatus.BAD_REQUEST,
+            error: 'password is invalid',
           },
           HttpStatus.BAD_REQUEST,
-        );
+        )
       }
-      
+
       const datas = {
         id: userOne.id,
-        email: userOne.email
-    }
+        email: userOne.email,
+      }
 
-    return {accessToken: await this.jwtService.sign(datas)}
+      return { accessToken: await this.jwtService.sign(datas) }
     } catch (err) {
       throw new HttpException(
         {
@@ -108,7 +129,7 @@ export class AuthService {
           message: 'Invalid credential',
         },
         HttpStatus.UNAUTHORIZED,
-      );
+      )
     }
   }
 }

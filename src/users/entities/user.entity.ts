@@ -14,54 +14,56 @@ import {
   ManyToOne,
   OneToMany,
   OneToOne,
-} from 'typeorm';
+  JoinColumn,
+} from 'typeorm'
 
 @Entity()
 export class Users {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: string
 
   @Column({ nullable: false })
-  email: string;
+  email: string
 
   @Column({ nullable: false })
-  password: string;
+  password: string
 
   @Column({ nullable: true })
-  salt: string;
+  salt: string
 
   @CreateDateColumn({
     type: 'timestamp with time zone',
     nullable: false,
   })
-  createdAt: Date;
+  createdAt: Date
 
   @UpdateDateColumn({
     type: 'timestamp with time zone',
     nullable: false,
   })
-  updatedAt: Date;
+  updatedAt: Date
 
   @DeleteDateColumn({
     type: 'timestamp with time zone',
     nullable: true,
   })
-  deletedAt: Date;
+  deletedAt: Date
 
   @VersionColumn()
-  version: number;
+  version: number
 
   @ManyToOne(() => Levels, (level) => level.user)
-  level: Levels;
+  level: Levels
 
   @OneToMany(() => Reviews, (reviews) => reviews.user)
-  reviews: Reviews;
+  reviews: Reviews
 
   @OneToMany(() => Banks, (banks) => banks.user)
-  banks: Banks;
+  banks: Banks
 
-  @OneToOne(() => Biodatas , (biodatas) =>biodatas.user)
-  biodatas: Biodatas;
+  @OneToOne(() => Biodatas, (biodatas) => biodatas.user)
+  @JoinColumn()
+  biodata: Biodatas
 
   @OneToMany(() => Products, (products) => products.user)
   products: Products;

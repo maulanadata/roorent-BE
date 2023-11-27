@@ -1,41 +1,39 @@
-import { GenderUsers } from '#/biodatas/entities/biodatas.entity';
-import { IsEnum, IsNotEmpty } from 'class-validator';
-import { IsNull } from 'typeorm';
+import { GenderUsers } from '#/biodatas/entities/biodatas.entity'
+import { IsEnum, IsNotEmpty } from 'class-validator'
 
 export class RegisterDTO {
-  @IsNotEmpty()
-  email: string;
+  // @IsNotEmpty()
+  level: string
 
   @IsNotEmpty()
-  password: string;
+  email: string
 
   @IsNotEmpty()
-  levelId: string;
+  password: string
 
   @IsNotEmpty()
-  nik: string;
+  nik: string
 
   @IsNotEmpty()
-  first_name: string;
+  first_name: string
 
   @IsNotEmpty()
-  last_name: string;
+  last_name: string
 
   @IsNotEmpty()
   @IsEnum(GenderUsers)
-  gender: GenderUsers;
+  gender: GenderUsers
 
   @IsNotEmpty()
-  birth_date: Date;
+  birth_date: Date
+
+  photo_profile: string
 
   @IsNotEmpty()
-  photo_profile: string;
+  phone: string
+
+  photo_ktp: string
 
   @IsNotEmpty()
-  telephone: string;
-
-  photo_ktp: string;
-
-  @IsNotEmpty()
-  address: string;
+  address: string
 }
