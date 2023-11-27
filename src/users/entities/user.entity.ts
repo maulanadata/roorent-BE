@@ -63,6 +63,6 @@ export class Users {
   @OneToOne(() => Biodatas , (biodatas) =>biodatas.user)
   biodatas: Biodatas;
 
-  // @OneToMany(() => Products, (products) => products.user)
-  // products: Products;
+  @OneToMany(() => Products, (products) => products.user)
+  products: Products;
 }

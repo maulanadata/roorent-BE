@@ -76,8 +76,8 @@ export class Biodatas {
   address: string;
 
   @Column({
-    default: false,
-    nullable: true,
+    default: true,
+    nullable: false,
   })
   isActive: boolean;
 
