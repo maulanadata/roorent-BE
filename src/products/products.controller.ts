@@ -16,7 +16,10 @@ import { UpdateProductsDTO } from './dto/update-products.dto'
 
 @Controller('products')
 export class ProductsController {
-  constructor(private productsService: ProductsService) {}
+  constructor(
+    private productsService: ProductsService,
+  ) // private photoProductsService: PhotoProductsService
+  {}
 
   @Get()
   async getAll() {

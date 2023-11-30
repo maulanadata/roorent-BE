@@ -1,4 +1,5 @@
 import { Cities } from '#/cities/entities/cities.entity'
+import { PhotoProducts } from '#/photo_products/entities/photo_products.entity'
 import { ProductDescriptions } from '#/product_descriptions/entities/product_descriptions.entity'
 import { SpecialRules } from '#/special_rules/entities/special_rules.entity'
 import { Users } from '#/users/entities/user.entity'
@@ -9,6 +10,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -16,9 +18,6 @@ import {
 
 @Entity()
 export class Products {
-      @ManyToOne(() => Cities, (cities) => cities.products)
-  cities: Cities
-
   @PrimaryGeneratedColumn('uuid')
   id: string
 
@@ -104,4 +103,10 @@ export class Products {
   @OneToOne(() => SpecialRules)
   @JoinColumn()
   specialRules: SpecialRules
+
+  @OneToMany(() => PhotoProducts, (photoProducts) => photoProducts.products)
+  photoProducts: PhotoProducts
+
+  @ManyToOne(() => Cities, (cities) => cities.products)
+  cities: Cities
 }
