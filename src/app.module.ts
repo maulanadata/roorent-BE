@@ -17,6 +17,7 @@ import { BanksModule } from './banks/banks.module'
 import { ProductDescriptionsModule } from './product_descriptions/product_descriptions.module'
 import { CitiesModule } from './cities/cities.module';
 import { ProductsModule } from './products/products.module';
+import { PhotoProductsModule } from './photo_products/photo_products.module';
 
 @Module({
   imports: [
@@ -112,6 +113,7 @@ import { ProductsModule } from './products/products.module';
     BanksModule,
     CitiesModule,
     ProductsModule,
+    PhotoProductsModule,
   ],
 })
 export class AppModule {}
