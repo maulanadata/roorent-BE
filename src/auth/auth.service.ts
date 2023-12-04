@@ -132,4 +132,60 @@ export class AuthService {
       )
     }
   }
+
+  async registerAdm(payload: RegisterDTO) {
+    try {
+      if (!['admin'].includes(payload.level)) {
+        throw new BadRequestException('Invalid, role not specified.')
+      }
+
+      const findLevelUser = await this.levelService.findOne(payload.level)
+
+      const levelId: any = findLevelUser.id
+
+      const isActive:any = "active"
+
+      const saltGenerate = await bcrypt.genSalt()
+      const hash = await bcrypt.hash(payload.password, saltGenerate)
+
+      const biodatasEntity = new Biodatas()
+      biodatasEntity.nik = payload.nik
+      biodatasEntity.first_name = payload.first_name
+      biodatasEntity.last_name = payload.last_name
+      biodatasEntity.gender = payload.gender
+      biodatasEntity.birth_date = new Date(payload.birth_date)
+      biodatasEntity.photo_profile = payload.photo_profile
+      biodatasEntity.phone = payload.phone
+      biodatasEntity.isActive = isActive
+      biodatasEntity.address = payload.address
+
+      const insertBiodatas = await this.biodatasRepository.insert(
+        biodatasEntity,
+      )
+
+      const usersEntity = new Users()
+      usersEntity.email = payload.email
+      usersEntity.salt = saltGenerate
+      usersEntity.password = hash
+      usersEntity.level = levelId
+      usersEntity.biodata = insertBiodatas.identifiers[0].id
+
+      const insertUsers = await this.usersRepository.insert(usersEntity)
+
+      return (
+        this.usersRepository.findOneOrFail({
+          where: {
+            id: insertUsers.identifiers[0].id,
+          },
+        }),
+        this.biodatasRepository.findOneOrFail({
+          where: {
+            id: insertBiodatas.identifiers[0].id,
+          },
+        })
+      )
+    } catch (err) {
+      throw err
+    }
+  }
 }

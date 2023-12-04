@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, ParseUUIDPipe, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, ParseUUIDPipe, Post, Put, Query } from '@nestjs/common';
 import { PhotoReviewsService } from './photo_reviews.service';
 import { HttpStatusCode } from 'axios';
 import { UpdatePhotoReviewsDTO } from './dto/update-photo_reviews.dto';
@@ -11,8 +11,8 @@ export class PhotoReviewsController {
   ){}
 
   @Get()
-  async getAllPhotoReviews() {
-    const [data, count] = await this.photoReviewsService.findAll()
+  async getAllPhotoReviews(@Query('page') page: number, @Query('limit') limit: number){
+    const [data, count] = await this.photoReviewsService.findAll(page, limit);
 
     return {
       statusCode: HttpStatusCode.Ok,

@@ -14,10 +14,10 @@ export class PhotoReviewsService {
     private reviewsRepository: ReviewsService,
   ){}
 
-  findAll(){
+  findAll(page: number = 1 , limit: number = 10){
     return this.photoReviewsRepository.findAndCount({
-      // skip: --page * 10,
-      // take: 10,
+      skip: --page * limit,
+      take: limit,
       relations: {
         reviews: true,
       }
